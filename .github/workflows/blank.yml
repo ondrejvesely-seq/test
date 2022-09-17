@@ -36,6 +36,7 @@ jobs:
         
       - name: swiftlint
         run: |
+              git clone git@github.com:biolinqinc/bumblebee-blinq-kit.git
               swiftlint
               if [ $? -ne 0 ]; then
                 exit 1
