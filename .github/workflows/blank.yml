@@ -38,9 +38,12 @@ jobs:
         run: |
               git config --global url."git@github.com:biolinqinc/bumblebee-blinq-kit.git".insteadOf "git@bumblebee.sequenex.com:root/blinqkit.git"
               git config --global url."git@github.com:biolinqinc/bumblebee-hive-kit.git".insteadOf "git@bumblebee.sequenex.com:root/hive-kit.git"
+              cd ..
+              find .
               
               git clone git@github.com:biolinqinc/bumblebee-app-ios.git
-              
+              cd bumblebee-app
+              ls
               xcodebuild -resolvePackageDependencies
               if [ $? -ne 0 ]; then
                 exit 1
