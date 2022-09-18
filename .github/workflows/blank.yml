@@ -36,12 +36,16 @@ jobs:
         
       - name: swiftlint
         run: |
-              git clone git@github.com:biolinqinc/bumblebee-blinq-kit.git
-              swiftlint
+              git clone git@github.com:biolinqinc/bumblebee-app-ios.git
+              git config --global url."git@github.com:biolinqinc/bumblebee-blinq-kit.git".insteadOf "git@bumblebee.sequenex.com:root/blinqkit.git"
+              git config --global url."git@github.com:biolinqinc/bumblebee-hive-kit.git".insteadOf "git@bumblebee.sequenex.com:root/hive-kit.git"
+              
+              git clone git@bumblebee.sequenex.com:root/blinqkit.git
+              
+              xcodebuild -resolvePackageDependencies
               if [ $? -ne 0 ]; then
                 exit 1
-              fi 
-
+              fi
       - name: BumblebeeIntegrationTests
         run: |
               xcodebuild test -scheme BumblebeeQA -configuration Debug -destination 'name=iPhone 13' -only-testing:BumblebeeIntegrationTests
