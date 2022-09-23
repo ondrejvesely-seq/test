@@ -25,7 +25,9 @@ jobs:
       - shell: bash
         run: |
              echo "${{ secrets.SSH_PRIVATE_KEY }}"
-             echo "${{ secrets.KNOWN_HOSTS }}"
+             echo "${{ secrets.KNOWN_HOSTS }}" >> /Users/runner/.ssh/KNOWN_HOSTS
+             cat /Users/runner/.ssh/KNOWN_HOSTS
+             
 
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
