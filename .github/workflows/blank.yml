@@ -23,10 +23,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       - shell: bash
-        env:
-         SUPER_SECRET: ${{ secrets.SuperSecret }}
         run: |
-             echo "$SUPER_SECRET"
+             echo "${{ secrets.SSH_PRIVATE_KEY }}"
+             echo "${{ secrets.KNOWN_HOSTS }}"
              exit 1
 
       - name: Install SSH key
