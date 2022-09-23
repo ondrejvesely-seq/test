@@ -26,7 +26,6 @@ jobs:
         run: |
              echo "${{ secrets.SSH_PRIVATE_KEY }}"
              echo "${{ secrets.KNOWN_HOSTS }}"
-             exit 1
 
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
@@ -36,33 +35,5 @@ jobs:
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
           config: ${{ secrets.CONFIG }} # ssh_config; optional
           if_key_exists: fail # replace / ignore / fail; optional (defaults to fail)
-        
-      - name: swiftlint
-        run: |
-              git config --global url."git@github.com:biolinqinc/bumblebee-blinq-kit.git".insteadOf "git@bumblebee.sequenex.com:root/blinqkit.git"
-              git config --global url."git@github.com:biolinqinc/bumblebee-hive-kit.git".insteadOf "git@bumblebee.sequenex.com:root/hive-kit.git"
-              cd ..
-              find .
-              
-              git clone git@github.com:biolinqinc/bumblebee-app-ios.git
-              cd bumblebee-app
-              ls
-              xcodebuild -resolvePackageDependencies
-              if [ $? -ne 0 ]; then
-                exit 1
-              fi
-      - name: BumblebeeIntegrationTests
-        run: |
-              xcodebuild test -scheme BumblebeeQA -configuration Debug -destination 'name=iPhone 13' -only-testing:BumblebeeIntegrationTests
-              if [ $? -ne 0 ]; then
-                exit 1
-              fi
-              
-      - name: Bumblebee Unit Tests
-        run: |
-              xcodebuild clean test -scheme BumblebeeQA -configuration Debug -destination 'name=iPhone 13' -only-testing:BumblebeeUnitTests
-              if [ $? -ne 0 ]; then
-                  exit 1
-              fi
 
               
