@@ -7,8 +7,6 @@ on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "develop" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -27,9 +25,10 @@ jobs:
       - shell: bash
         env:
          SUPER_SECRET: ${{ secrets.SuperSecret }}
-         run: |
-               echo "$SUPER_SECRET"
-               exit 1
+        run: |
+             echo "$SUPER_SECRET"
+             exit 1
+
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
